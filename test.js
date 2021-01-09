@@ -32,7 +32,7 @@ function textComponent(width, height, color, x, y) {
 	this.height = height;
 	this.x = x;
 	this.y = y;
-	//this.text = "TOTAL SCORE: ";
+	this.text = "TOTAL SCORE: 0";
 	this.update = function() {
 		ctx = myGameArea.context;
 		ctx.font = "Consolas";
@@ -48,7 +48,8 @@ var redGamePiece, greenGamePiece;
 var num_correct;
 var prev_choice_correct;
 var component_array = [];
-var score_increment = 0;
+var actual_score = 0;
+var displayed_score = 0;
 var stored_clicks = [];
 var trials_corr_inc = [];
 var num_trials = 0;
@@ -72,10 +73,10 @@ function setuponesquare() {
 					stored_clicks.push(iclicked);
 					if (component_array[iclicked].color == myGameArea.clicked_color) {
 							alert('correct color chosen')
-							score_increment += 1;
+							actual_score += 1;
 							trials_corr_inc.push(1);
-							var pointText = new textComponent("30px", "30px", "black", 200, 200);
-							pointText.text = "+1 point";
+							//var pointText = new textComponent("30px", "30px", "black", 200, 200);
+							//pointText.text = "+1 point";
 							//myGameArea.pointText.text = "+1 point";
 					}
 					else {
@@ -85,6 +86,8 @@ function setuponesquare() {
 					if (!(trials_corr_inc.length == 1)) {
 							if ((trials_corr_inc[trials_corr_inc.length - 2]) == 1) {
 									alert('+1 point');
+									displayed_score += 1
+									myGameArea.myScore.text = "TOTAL SCORE: " + displayed_score; 
 									
 							}
 					}
@@ -126,7 +129,10 @@ function setuponesquare() {
 		updateGameArea();
 		myGameArea.step = 2;
 		}
-		else {alert('5 trials done')}
+		else {
+			alert('5 trials done');
+            updateGameArea();
+		}
 
 	}
 
@@ -291,14 +297,17 @@ function updateGameArea() {
 		x.update();
 	}
 	if (component_array.length > 0) {
-			myGameArea.myScore.text = "TOTAL SCORE: " + score_increment; 
+			//if (!(trials_corr_inc.length == 1)) {
+			//if ((trials_corr_inc[trials_corr_inc.length - 2] == 1)) {
+			
 			myGameArea.myScore.update();
 	}
+
+
 	
 	/*for (var i of clicked_color_array) {
 		i.update();
 	}*/
-
 
 	
 	/*for (var j of two_array) {
