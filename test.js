@@ -27,12 +27,12 @@ function component(width, height, color, x, y) {
 }
 
 
-function textComponent(width, height, color, x, y) {
+function textComponent(width, height, color, x, y, text) {
 	this.width = width;
 	this.height = height;
 	this.x = x;
 	this.y = y;
-	this.text = "TOTAL SCORE: 0";
+	this.text = text;
 	this.update = function() {
 		ctx = myGameArea.context;
 		ctx.font = "Consolas";
@@ -57,6 +57,8 @@ var instr0 = 'instructions 0';
 var instr1 = 'instructions 1';
 var instr2 = 'instructions 2';
 var instruction_set;
+var pointText = new textComponent("30px", "30px", "black", 200, 200, " ");
+
 
 
 function setuponesquare() {
@@ -75,9 +77,7 @@ function setuponesquare() {
 							alert('correct color chosen')
 							actual_score += 1;
 							trials_corr_inc.push(1);
-							//var pointText = new textComponent("30px", "30px", "black", 200, 200);
-							//pointText.text = "+1 point";
-							//myGameArea.pointText.text = "+1 point";
+														//myGameArea.pointText.text = "+1 point";
 					}
 					else {
 							alert('incorrect color chosen')
@@ -85,7 +85,9 @@ function setuponesquare() {
 					}
 					if (!(trials_corr_inc.length == 1)) {
 							if ((trials_corr_inc[trials_corr_inc.length - 2]) == 1) {
-									alert('+1 point');
+									var mySound = document.getElementById('sound');
+									mySound.play();
+									pointText.text = "+1 point";
 									displayed_score += 1
 									myGameArea.myScore.text = "TOTAL SCORE: " + displayed_score; 
 									
@@ -158,6 +160,7 @@ function setuponesquare() {
 
 
 function setuptwosquares() {
+	pointText.text = " ";
 	//alert("in setup two");
 	if (component_array[0].clicked()) {
 		alert(component_array[0].color+' was clicked');
@@ -218,8 +221,9 @@ var myGameArea = {
 		}
 		alert('stored instruction' + instruction_set)
 
-		myGameArea.myScore = new textComponent("30px", "30px", "black", 400, 70);		
+		myGameArea.myScore = new textComponent("30px", "30px", "black", 400, 70, "TOTAL SCORE: 0");		
 		//myGameArea.pointText = new textComponent("30px", "30px", "black", 200, 200);
+
 
 		myGameArea.step = 1;
 		myGameArea.clicked_color;
@@ -302,6 +306,7 @@ function updateGameArea() {
 			
 			myGameArea.myScore.update();
 	}
+	pointText.update();
 
 
 	
