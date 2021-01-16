@@ -59,6 +59,52 @@ var instr2 = 'instructions 2';
 var instruction_set;
 var pointText = new textComponent("30px", "30px", "black", 200, 200, " ");
 
+/*
+function showTemporarily(msg, location, duration) {
+				// msg is a string to display
+				// location is a DOM element to hold the message
+				// duration is the number of milliseconds to display the message
+				location.innerHTML = msg;
+				let timeout = setTimeout(function () {
+								location.innerHTML = '';
+				}, duration);
+};
+*/
+/*
+function sleep(milliseconds) {
+				const date = Date.now();
+				let currentDate = null;
+				do {
+								currentDate = Date.now();
+									  } while (currentDate - date < milliseconds);
+				//myGameArea.clear();
+}
+*/
+//console.log("Hello");
+//sleep(2000);
+//console.log("World!");
+/*
+function sleep(ms) {
+				return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function delayedGreeting() {
+				component_array = [];
+				//updateGameArea();
+				//var mySound = document.getElementById('sound');
+				//mySound.play();
+				//pointText.text = "+1 point";
+
+				//console.log("Hello");
+				await sleep(2000);
+
+				// await for 2 seconds then continue with program, set up a one square
+				//console.log("World!");
+				//setuponesquare();
+}
+*/
+//delayedGreeting();
+//console.log("Goodbye!");
 
 
 function setuponesquare() {
@@ -77,7 +123,7 @@ function setuponesquare() {
 							alert('correct color chosen')
 							actual_score += 1;
 							trials_corr_inc.push(1);
-														//myGameArea.pointText.text = "+1 point";
+													
 					}
 					else {
 							alert('incorrect color chosen')
@@ -85,38 +131,59 @@ function setuponesquare() {
 					}
 					if (!(trials_corr_inc.length == 1)) {
 							if ((trials_corr_inc[trials_corr_inc.length - 2]) == 1) {
+									//updateGameArea();
+									//myGameArea.context.clearRect(0, 0, myGameArea.canvas.width, myGameArea.canvas.height);
+									//redGamePiece.clearRect();
+									//greenGamePiece.clearRect();
+									//delayedGreeting();
 									var mySound = document.getElementById('sound');
 									mySound.play();
-									pointText.text = "+1 point";
+									//pointText.text = "+1 point";
 									displayed_score += 1
-									myGameArea.myScore.text = "TOTAL SCORE: " + displayed_score; 
-									
+									myGameArea.myScore.text = "TOTAL SCORE: " + displayed_score;
+									//document.getElementById('point') = pointText.text;
+									showTemporarily(pointText.text = '+1 point', document.getElementById('point'), 2000);
+									pointMessage.remove();
+
+
+									//delayedGreeting();
+									//showTemporarily('+1 point', location, 2000);
+
+									//for (var x of component_array) {
+										//			x.x = 1000;
+									//}
+                  //component_array = [];
+									//alert('ran if statment going onto sleep function next');
+									//showTemporarily('+1 point', location, 2000);
+
+									//myGameArea.clear();
+									//updateGameArea();
 							}
 					}
-
-
 			}
-
-		//console.log(stored_clicks + 'x' + trials_corr_inc);
-
-		//myGameArea.myScore.text = "SCORE: ";
-		/*var i;
-		for (i = 0; i < component_array.length; i++) {
-			if (component_array[i].clicked() == 0) {
-				alert('red was clicked')
-			}
-			else if (component_array[i].clicked() == 1) {
-				alert('green was clicked')
-			}
-			else {
-				alert('start of program again')
-			}
-		}*/
-		//alert('one of the colors was clicked')
+					//setuponesquare_part2();
 	
-		
 
-	    if (num_trials < 5) {
+	
+				//setuponesquare_part2();
+
+		// three brackets and setuponesquare_part2();
+//sleep(2000);
+//setuponesquare();
+//setuponesquare_addition();
+
+/*function setuponesquare_part2(){
+	 if (component_array.length == 0 && num_trials > 1){
+
+					 sleep(2000);
+	 }
+*/
+
+//function setuponesquare_part2() {
+				//sleep(2000);
+
+
+    if (num_trials < 5) {
 
 		component_array = [];
 		var random_color = Math.floor(Math.random() * 2);
@@ -135,28 +202,9 @@ function setuponesquare() {
 			alert('5 trials done');
             updateGameArea();
 		}
-
 	}
-
-
-	
-
-			//myGameArea.start();
-	
-
-
-		//updates....
-	        /*for (var j of component_array) {
-			if (myGameArea.mousex == component_array[j].mousex && myGameArea.mousey == component_array[j].mousey) {
-				alert('it worked')
-			}
-		}*/
-	
-
-
-
-	//myGameArea.start();
 }
+
 
 
 function setuptwosquares() {
@@ -177,23 +225,6 @@ function setuptwosquares() {
 }
 
 
-
-/*function afterselecting() {
-	if (component_array[0].clicked() || component_array[1].clicked()) {
-		setupNewSquares();
-	}*/
-
-
-
-
-/*function setupcolors() {
-	redGamePiece = new component(30, 30, "red", 10, 120);
-	greenGamePiece = new component(30, 30, "green", 50, 120);
-	//myGameArea.start();
-
-}*/
-
-
 var myGameArea = {
 	canvas : document.createElement("canvas"),
 	start : function() {
@@ -206,7 +237,7 @@ var myGameArea = {
 		document.body.insertBefore(this.canvas, null);
 		this.frameNo = 0;
 
-		var random_instr = Math.floor(Math.random()*3)
+		var random_instr = Math.floor(Math.random()*3);
 		if (random_instr == 0) {
 				document.getElementById('instructions').innerHTML = instr0;
 				instruction_set = 0;
@@ -219,15 +250,13 @@ var myGameArea = {
 				document.getElementById('instructions').innerHTML = instr2;
 				instruction_set = 2;
 		}
-		alert('stored instruction' + instruction_set)
+		alert('stored instruction' + instruction_set);
 
 		myGameArea.myScore = new textComponent("30px", "30px", "black", 400, 70, "TOTAL SCORE: 0");		
-		//myGameArea.pointText = new textComponent("30px", "30px", "black", 200, 200);
-
 
 		myGameArea.step = 1;
 		myGameArea.clicked_color;
-		//if (num_trials < 5) {
+		
 		window.addEventListener('mousedown', function (e) {
 				myGameArea.x = e.clientX;
 				myGameArea.y = e.clientY;
@@ -236,7 +265,7 @@ var myGameArea = {
 						var mes = document.getElementById('welcome');
 						var mes2 = document.getElementById('message');
 						var mes3 = document.getElementById('messageBegin');
-						//instructionMessage = Instructions;
+						
 						mes.remove();
 						mes2.remove();
 						mes3.remove();
@@ -251,43 +280,10 @@ var myGameArea = {
 								setuptwosquares();
 						}
 				}
-				//else{alert('5 trials has ended')}
-		
-		//else {alert('5 trials has ended')}
-		
-
-
-			/*if (component_array[0].clicked()) {
-				alert(component_array[0].color+' was clicked');
-				setuptwosquares();
-			}*/
-				//updateGameArea();
-			
-				/*if (component_array[0].clicked() || component_array[1].clicked()) {
-					setupNewSquares();
-				}*/
-			
-			//afterselecting();
-			//updateGameArea();
-
-			
-			
-			
-
-			//setuptwosquares();
-			//setuptwosquares();
-		//setuptwosquares();
-			//`setuptwosquares();
-			    			    
-
-
-			//setuptwosquares();
-			//updateGameArea();
-
-
 		})
-		
-			
+
+
+		//})
 	},
 	clear : function() {
 		this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -301,30 +297,9 @@ function updateGameArea() {
 		x.update();
 	}
 	if (component_array.length > 0) {
-			//if (!(trials_corr_inc.length == 1)) {
-			//if ((trials_corr_inc[trials_corr_inc.length - 2] == 1)) {
-			
 			myGameArea.myScore.update();
 	}
 	pointText.update();
-
-
-	
-	/*for (var i of clicked_color_array) {
-		i.update();
-	}*/
-
-	
-	/*for (var j of two_array) {
-		j.update();
-	}*/
-	//redGamePiece.update();
-	//greenGamePiece.update();
-
-
-
-
-	
 }
 
 //alert("start of program");
