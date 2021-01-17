@@ -58,7 +58,7 @@ var instr1 = 'instructions 1';
 var instr2 = 'instructions 2';
 var instruction_set;
 var pointText = new textComponent("30px", "30px", "black", 200, 200, " ");
-var makeSquare = 1; 
+var makeSquare = 1; // is a flag, set to true
 // added variable for timesetout function 1/16/21
 
 
@@ -91,7 +91,7 @@ function setuponesquare() {
 									pointText.text = "+1 point";
 									displayed_score += 1
 									myGameArea.myScore.text = "TOTAL SCORE: " + displayed_score; 
-									makeSquare = 0;
+									makeSquare = 0; // set to false bc want the delay where squares are not made
 							}
 					}
 					
@@ -124,7 +124,7 @@ function setuponesquare() {
 			//	setTimeout(function () {alert("after time");}, 5000);				
 			//	makeSquare = 1;
 			//}
-			if (makeSquare == 1) {			
+			if (makeSquare == 1) {	// so correct color was not chosen and make the squares without any delay or point showing		
 				var random_color = Math.floor(Math.random() * 2);
 				if (random_color == 0) {
 					redGamePiece = new component(30, 30, "red", 10, 120);
@@ -136,8 +136,8 @@ function setuponesquare() {
 				}
 			}
 			else {
-				makeSquare = 1;
-				setTimeout(function() {
+
+					setTimeout(function() { // use setTimeout to have a delay before running this code to set up component arrays
 
 					var random_color = Math.floor(Math.random() * 2);
 					if (random_color == 0) {
@@ -158,7 +158,8 @@ function setuponesquare() {
 
 			updateGameArea();
 			myGameArea.step = 2;
-			
+			makeSquare = 1; // set makesquare back to true
+
 		}
 		else {
 			alert('5 trials done');
