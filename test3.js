@@ -1,13 +1,23 @@
-function component(width, height, color, x, y) {
+function component(width, height, color, x, y, bar){
 	this.width = width;
 	this.height = height;
 	this.x = x;
 	this.y = y;
 	this.color = color;
+	this.bar = bar;
 	this.update = function(){
 		ctx = myGameArea.context;
+		ctx.beginPath();
+		ctx.arc(this.x, this.y, this.width, 0, 2 * Math.PI, false);
+		ctx.lineWidth = 3;
 		ctx.fillStyle = color;
-		ctx.fillRect(this.x, this.y, this.width, this.height);
+		//ctx.strokeStyle = '#FF0000';
+		ctx.fill();
+
+         if (this.bar){
+		    ctx.fillStyle = 'Black';
+		    ctx.fillRect(this.x, this.y, this.width*0.3, this.height*0.5); 
+		 }
 	}
 	
 	this.clicked = function() {
@@ -60,7 +70,7 @@ var instruction_set;
 var pointText = new textComponent("30px", "30px", "black", 200, 200, " ");
 var makeSquare = 1; // is a flag, set to true
 // added variable for timesetout function 1/16/21
-
+var gameStarted = 1;
 
 function setuponesquare() {
 	//alert('in setup one');
@@ -116,9 +126,11 @@ function setuponesquare() {
 	
 		
 
+        component_array = [];
+
 	    if (num_trials < 5) {
 			
-			component_array = [];
+			//component_array = [];
 			//if (makeSquare == 0) {
 			//	alert("makeSquare");
 			//	setTimeout(function () {alert("after time");}, 5000);				
@@ -127,43 +139,56 @@ function setuponesquare() {
 			if (makeSquare == 1) {	// so correct color was not chosen and make the squares without any delay or point showing		
 				var random_color = Math.floor(Math.random() * 2);
 				if (random_color == 0) {
-					redGamePiece = new component(30, 30, "red", 10, 120);
+					redGamePiece = new component(30, 30, "red", 10, 120, true);
 					component_array.push(redGamePiece);
 				}
 				else {
-					greenGamePiece = new component(30, 30, "green", 50, 120);
+					greenGamePiece = new component(30, 30, "green", 50, 120, false);
 					component_array.push(greenGamePiece);
 				}
 			}
 			else {
+					gameStarted = 0;
 
 					setTimeout(function() { // use setTimeout to have a delay before running this code to set up component arrays
 
+                    pointText.text = " ";
+					gameStarted = 1;
 					var random_color = Math.floor(Math.random() * 2);
 					if (random_color == 0) {
-						redGamePiece = new component(30, 30, "red", 10, 120);
+						redGamePiece = new component(30, 30, "red", 10, 120, true);
 						component_array.push(redGamePiece);
 					}
 					else {
-						greenGamePiece = new component(30, 30, "green", 50, 120);
+						greenGamePiece = new component(30, 30, "green", 50, 120, false);
 						component_array.push(greenGamePiece);
 					}
+
 					updateGameArea();
 					myGameArea.step = 2;
 
 
-				}, 3000);
+				}, 2000);
 
 			}
 
 			updateGameArea();
+			//pointText.text = " ";
 			myGameArea.step = 2;
 			makeSquare = 1; // set makesquare back to true
-
+			//gameStarted = 1;
 		}
+			//
 		else {
-			alert('5 trials done');
-            updateGameArea();
+			if (makeSquare == 1) {
+					setupEndScreen();
+			}
+			else{		
+            setTimeout(setupEndScreen, 2000);
+			}
+				
+			updateGameArea();
+
 		}
 
 
@@ -189,6 +214,12 @@ function setuponesquare() {
 	//myGameArea.start();
 }
 
+function setupEndScreen() {
+	component_array = [];
+	pointText.text = " ";
+	document.getElementById('Thank you').innerHTML = "Thank you for participating";
+    updateGameArea();
+}
 
 function setuptwosquares() {
 	pointText.text = " ";
@@ -198,9 +229,9 @@ function setuptwosquares() {
 		myGameArea.clicked_color = component_array[0].color;
 		component_array = [];
 		//clicked_color_array = [];
-		redGamePiece = new component(30, 30, "red", 10, 120);
+		redGamePiece = new component(30, 30, "red", 10, 120, true);
 			component_array.push(redGamePiece);
-			greenGamePiece = new component(30, 30, "green", 50, 120);
+			greenGamePiece = new component(30, 30, "green", 50, 120, false);
 			component_array.push(greenGamePiece);
 		updateGameArea();
 		myGameArea.step = 1;
@@ -228,14 +259,16 @@ function setuptwosquares() {
 var myGameArea = {
 	canvas : document.createElement("canvas"),
 	start : function() {
-		this.canvas.width = 480;
-		this.canvas.height = 270;
+		this.canvas.width = screen.width;
+		this.canvas.height = screen.height;
 		//this.canvas.style.cursor = "none"; //hide the original cursor
 		this.context = this.canvas.getContext("2d");
 		//document.body.insertBefore(this.canvas, document.body.childNodes[0]);
 		//document.body.insertBefore(this.canvas, document.body.lastChild.nextSibling);
 		document.body.insertBefore(this.canvas, null);
 		this.frameNo = 0;
+
+		//var thanks = 		
 
 		var random_instr = Math.floor(Math.random()*3)
 		if (random_instr == 0) {
@@ -250,20 +283,22 @@ var myGameArea = {
 				document.getElementById('instructions').innerHTML = instr2;
 				instruction_set = 2;
 		}
-		alert('stored instruction' + instruction_set)
+		alert('stored instruction' + instruction_set)	
 
 		myGameArea.myScore = new textComponent("30px", "30px", "black", 400, 70, "TOTAL SCORE: 0");		
 		//myGameArea.pointText = new textComponent("30px", "30px", "black", 200, 200);
 
-
 		myGameArea.step = 1;
 		myGameArea.clicked_color;
 		//if (num_trials < 5) {
+
+	    //if (gameStarted == 1) {	
 		window.addEventListener('mousedown', function (e) {
 				myGameArea.x = e.clientX;
 				myGameArea.y = e.clientY;
 
-				if (component_array.length == 0) {
+				if (gameStarted == 1) {
+				if (component_array.length == 0/*num_trials == 0*/) {
 						var mes = document.getElementById('welcome');
 						var mes2 = document.getElementById('message');
 						var mes3 = document.getElementById('messageBegin');
@@ -281,11 +316,11 @@ var myGameArea = {
 						else {
 								setuptwosquares();
 						}
+				}		
 				}
-				
-
 
 		})
+		
 		
 			
 	},
@@ -302,7 +337,7 @@ function updateGameArea() {
 	for (var x of component_array) {
 		x.update();
 	}
-	if (component_array.length > 0) {
+	if (num_trials > 0) {
 			//if (!(trials_corr_inc.length == 1)) {
 			//if ((trials_corr_inc[trials_corr_inc.length - 2] == 1)) {
 			

@@ -142,8 +142,8 @@ function setuponesquare() {
 									displayed_score += 1
 									myGameArea.myScore.text = "TOTAL SCORE: " + displayed_score;
 									//document.getElementById('point') = pointText.text;
-									showTemporarily(pointText.text = '+1 point', document.getElementById('point'), 2000);
-									pointMessage.remove();
+									//showTemporarily(pointText.text = '+1 point', document.getElementById('point'), 2000);
+									//pointMessage.remove();
 
 
 									//delayedGreeting();
@@ -197,6 +197,7 @@ function setuponesquare() {
 		}
 		updateGameArea();
 		myGameArea.step = 2;
+		pointText.text = " ";
 		}
 		else {
 			alert('5 trials done');
