@@ -300,7 +300,7 @@ var myGameArea = {
 				myGameArea.y = e.clientY;
 
 				if (gameStarted == 1) {
-				if (component_array.length == 0/*num_trials == 0*/) {
+				if (component_array.length == 0 && num_trials == 0) {
 						var mes = document.getElementById('welcome');
 						var mes2 = document.getElementById('message');
 						var mes3 = document.getElementById('messageBegin');
