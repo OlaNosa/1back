@@ -16,7 +16,7 @@ function component(width, height, color, x, y, bar){
 
          if (this.bar){
 		    ctx.fillStyle = 'Black';
-		    ctx.fillRect(this.x, this.y, this.width*0.2, this.height*0.2); 
+		    ctx.fillRect(this.x-this.width, this.y, this.width*2, this.height*.4); 
 		 }
 	}
 	
