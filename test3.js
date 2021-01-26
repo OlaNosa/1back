@@ -16,7 +16,7 @@ function component(width, height, color, x, y, bar){
 
          if (this.bar){
 		    ctx.fillStyle = 'Black';
-		    ctx.fillRect(this.x, this.y, this.width*0.3, this.height*0.5); 
+		    ctx.fillRect(this.x, this.y, this.width*0.2, this.height*0.2); 
 		 }
 	}
 	
@@ -73,7 +73,7 @@ var makeSquare = 1; // is a flag, set to true
 var gameStarted = 1;
 
 function setuponesquare() {
-	//alert('in setup one');
+	alert('in setup one');
 	//alert(component_array.length + 'len comp arra')
 	
 	if (component_array.length == 0 || component_array[0].clicked() || component_array[1].clicked()) {
@@ -139,11 +139,11 @@ function setuponesquare() {
 			if (makeSquare == 1) {	// so correct color was not chosen and make the squares without any delay or point showing		
 				var random_color = Math.floor(Math.random() * 2);
 				if (random_color == 0) {
-					redGamePiece = new component(screen.width/20, screen.height/20, "red", screen.width/2, screen.height/2, true);
+					redGamePiece = new component(screen.width/40, screen.height/40, "red", screen.width/2, screen.height/2, true);
 					component_array.push(redGamePiece);
 				}
 				else {
-					greenGamePiece = new component(screen.width/20, screen.height/20, "green", screen.width/2, screen.height/2, false);
+					greenGamePiece = new component(screen.width/40, screen.height/40, "green", screen.width/2, screen.height/2, false);
 					component_array.push(greenGamePiece);
 				}
 			}
@@ -156,11 +156,11 @@ function setuponesquare() {
 					gameStarted = 1;
 					var random_color = Math.floor(Math.random() * 2);
 					if (random_color == 0) {
-						redGamePiece = new component(screen.width/20, screen.height/20, "red", screen.width/2, screen.height/2, true);
+						redGamePiece = new component(screen.width/40, screen.height/40, "red", screen.width/2, screen.height/2, true);
 						component_array.push(redGamePiece);
 					}
 					else {
-						greenGamePiece = new component(screen.width/20, screen.height/20, "green", screen.width/2, screen.height/2, false);
+						greenGamePiece = new component(screen.width/40, screen.height/40, "green", screen.width/2, screen.height/2, false);
 						component_array.push(greenGamePiece);
 					}
 
@@ -225,15 +225,15 @@ function setupEndScreen() {
 
 function setuptwosquares() {
 	pointText.text = " ";
-	//alert("in setup two");
+	alert("in setup two");
 	if (component_array[0].clicked()) {
 		alert(component_array[0].color+' was clicked');
 		myGameArea.clicked_color = component_array[0].color;
 		component_array = [];
 		//clicked_color_array = [];
-		redGamePiece = new component(screen,width/20, screen.height/20, "red", screen.width/3, screen.height/3, true);
+		redGamePiece = new component(screen.width/40, screen.height/40, "red", screen.width/3, screen.height/2, true);
 			component_array.push(redGamePiece);
-			greenGamePiece = new component(screen.width/20, screen.height/20, "green", screen.width*(2/3), screen.height*(2/3), false);
+			greenGamePiece = new component(screen.width/40, screen.height/40, "green", screen.width*(2/3), screen.height/2, false);
 			component_array.push(greenGamePiece);
 		updateGameArea();
 		myGameArea.step = 1;
