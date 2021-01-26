@@ -21,10 +21,10 @@ function component(width, height, color, x, y, bar){
 	}
 	
 	this.clicked = function() {
-		var myleft = this.x;
+		var myleft = this.x-this.width;
 		var myright = this.x + (this.width);
-		var mytop = this.y;
-		var mybottom = this.y + (this.height);
+		var mytop = this.y-this.width;
+		var mybottom = this.y + (this.width);
 		var clicked = true;
 		if ((mybottom < myGameArea.y) || (mytop > myGameArea.y) || (myright < myGameArea.x) || (myleft > myGameArea.x)) {
 			clicked = false;
@@ -321,6 +321,7 @@ var myGameArea = {
 						}
 				}
 				}
+				
 				
 
 		})
