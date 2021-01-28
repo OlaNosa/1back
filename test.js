@@ -108,7 +108,7 @@ async function delayedGreeting() {
 
 
 function setuponesquare() {
-	//alert('in setup one');
+	alert('in setup one');
 	//alert(component_array.length + 'len comp arra')
 	
 	if (component_array.length == 0 || component_array[0].clicked() || component_array[1].clicked()) {
@@ -210,7 +210,7 @@ function setuponesquare() {
 
 function setuptwosquares() {
 	pointText.text = " ";
-	//alert("in setup two");
+	alert("in setup two");
 	if (component_array[0].clicked()) {
 		alert(component_array[0].color+' was clicked');
 		myGameArea.clicked_color = component_array[0].color;

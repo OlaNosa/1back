@@ -16,7 +16,7 @@ function component(width, height, color, x, y, bar){
 
          if (this.bar){
 		    ctx.fillStyle = 'Black';
-		    ctx.fillRect(this.x-this.width, this.y, this.width*2, this.height*.4); 
+		    ctx.fillRect(this.x-this.width, this.y, this.width*2, this.height*.2); 
 		 }
 	}
 	
@@ -45,7 +45,8 @@ function textComponent(width, height, color, x, y, text) {
 	this.text = text;
 	this.update = function() {
 		ctx = myGameArea.context;
-		ctx.font = "Consolas";
+		ctx.font = "15px Consolas";
+		//ctx.fontSize = "50px";
 		ctx.fillStyle = color;
 		ctx.fillText(this.text, this.x, this.y);
 	}
@@ -67,13 +68,15 @@ var instr0 = 'instructions 0';
 var instr1 = 'instructions 1';
 var instr2 = 'instructions 2';
 var instruction_set;
-var pointText = new textComponent("30px", "30px", "black", 200, 200, " ");
+var pointText = new textComponent("50px", "50px", "black", screen.width/2, screen.height/2, " ");
 var makeSquare = 1; // is a flag, set to true
 // added variable for timesetout function 1/16/21
 var gameStarted = 1;
+const mySound = document.getElementById("sound");
+
 
 function setuponesquare() {
-	alert('in setup one');
+	//alert('in setup one');
 	//alert(component_array.length + 'len comp arra')
 	
 	if (component_array.length == 0 || component_array[0].clicked() || component_array[1].clicked()) {
@@ -85,18 +88,17 @@ function setuponesquare() {
 					else {iclicked = 1}
 					stored_clicks.push(iclicked);
 					if (component_array[iclicked].color == myGameArea.clicked_color) {
-							alert('correct color chosen')
+							//alert('correct color chosen')
 							actual_score += 1;
 							trials_corr_inc.push(1);
 														//myGameArea.pointText.text = "+1 point";
 					}
 					else {
-							alert('incorrect color chosen')
+							//alert('incorrect color chosen')
 							trials_corr_inc.push(0);
 					}
 					if (!(trials_corr_inc.length == 1)) {
 							if ((trials_corr_inc[trials_corr_inc.length - 2]) == 1) {
-									var mySound = document.getElementById('sound');
 									mySound.play();
 									pointText.text = "+1 point";
 									displayed_score += 1
@@ -225,9 +227,9 @@ function setupEndScreen() {
 
 function setuptwosquares() {
 	pointText.text = " ";
-	alert("in setup two");
+	//alert("in setup two");
 	if (component_array[0].clicked()) {
-		alert(component_array[0].color+' was clicked');
+		//alert(component_array[0].color+' was clicked');
 		myGameArea.clicked_color = component_array[0].color;
 		component_array = [];
 		//clicked_color_array = [];
@@ -287,7 +289,7 @@ var myGameArea = {
 		}
 		//alert('stored instruction' + instruction_set)	
 
-		myGameArea.myScore = new textComponent("30px", "30px", "black", 400, 70, "TOTAL SCORE: 0");		
+		myGameArea.myScore = new textComponent("30px", "30px", "black", screen.width*(2/3), screen.height/4, "TOTAL SCORE: 0");		
 		//myGameArea.pointText = new textComponent("30px", "30px", "black", 200, 200);
 
 		myGameArea.step = 1;
@@ -296,8 +298,8 @@ var myGameArea = {
 
 	    //if (gameStarted == 1) {	
 		window.addEventListener('mousedown', function (e) {
-				myGameArea.x = e.clientX;
-				myGameArea.y = e.clientY;
+				myGameArea.x = e.pageX;
+				myGameArea.y = e.pageY;
 
 				if (gameStarted == 1) {
 				if (component_array.length == 0 && num_trials == 0) {
@@ -342,7 +344,7 @@ function updateGameArea() {
 	for (var x of component_array) {
 		x.update();
 	}
-	if (num_trials > 0) {
+	if (num_trials > 0 || component_array.length > 0) {
 			//if (!(trials_corr_inc.length == 1)) {
 			//if ((trials_corr_inc[trials_corr_inc.length - 2] == 1)) {
 			
