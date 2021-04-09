@@ -14,7 +14,7 @@ function component(width, height, color, x, y){
 		//ctx.strokeStyle = '#FF0000';
 		ctx.fill();
 
-        /* if (this.bar){
+        /*if (this.bar){
 		    ctx.fillStyle = 'Black';
 		    ctx.fillRect(this.x-this.width, this.y, this.width*2, this.height*.2); 
 		 }*/
@@ -130,7 +130,7 @@ function setuponesquare() {
 
         component_array = [];
 
-	    if (num_trials < 5) {
+	    if (num_trials < 96) {
 			
 			//component_array = [];
 			//if (makeSquare == 0) {
@@ -333,7 +333,7 @@ var myGameArea = {
 				}
 				
 
-				if (num_trials < 5) {
+				if (num_trials < 96) {
 						if (myGameArea.step == 1) {
 								setuponesquare();
 						}
